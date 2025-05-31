@@ -17,6 +17,20 @@ monthly_challenges = {
     "december":"Learn Django for at least 20 minutes everyday."
 }
 
+def index(request):
+    months = list(monthly_challenges.keys())
+    month_list = []
+    for month in months:
+        month_path= reverse("month-challenge", args=[month])
+        month = f"<li><a href='{month_path}'>{month.capitalize()}</a></li>"
+        month_list.append(month)
+    print(month_list)
+    
+    list_items="".join(month_list)
+    response_data=f"<ul>{list_items}</ul>"
+    
+    return HttpResponse(response_data)
+
 def monthly_challenge_by_number(request,month):
     try:
         months = list(monthly_challenges.keys())
